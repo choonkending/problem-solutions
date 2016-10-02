@@ -7,7 +7,7 @@ function Emitter () {
     return {
       release: function() {
         const id = listeners.indexOf(callback);
-        events[event].splice(id - 1, 1);
+        events[event].splice(id, 1);
       }
     };
   }
@@ -26,6 +26,8 @@ function Emitter () {
 
 const emitter = new Emitter();
 const subscriber = emitter.subscribe('someEvent', () => { console.log('hey') });
+const subscriber2 = emitter.subscribe('someEvent', () => { console.log('hah') });
 emitter.emit('someEvent');
-subscriber.release();
+subscriber2.release();
 emitter.emit('someEvent');
+
