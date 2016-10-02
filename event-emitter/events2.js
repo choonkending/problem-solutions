@@ -2,10 +2,11 @@ function Emitter () {
   const events = {};
   function subscribe(event, callback) {
     const listeners = events[event] || [];
-    const id = listeners.push(callback);
+    listeners.push(callback);
     events[event] = listeners;
     return {
       release: function() {
+        const id = listeners.indexOf(callback);
         events[event].splice(id - 1, 1);
       }
     };
