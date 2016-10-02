@@ -1,28 +1,24 @@
-function Emitter () {
-  const events = {};
-  function subscribe(event, callback) {
-    const listeners = events[event] || [];
-    listeners.push(callback);
-    events[event] = listeners;
-    return {
-      release: function() {
-        const id = listeners.indexOf(callback);
-        events[event].splice(id, 1);
-      }
-    };
-  }
-
-  function emit(event) {
-    if (events[event]) {
-      events[event].forEach(listener => listener());
-    }
-  }
-
-  return {
-    subscribe,
-    emit
-  };
+function Emitter() {
+  this.events = {};
 }
+
+Emitter.prototype.subscribe = function(event, callback) {
+  const listeners = this.events[event] || [];
+  listeners.push(callback);
+  this.events[event] = listeners;
+  return {
+    release: () => {
+      const id = listeners.indexOf(callback);
+      this.events[event].splice(id, 1);
+    }
+  };
+};
+
+Emitter.prototype.emit = function(event) {
+  if (this.events[event]) {
+    this.events[event].forEach(listener => listener());
+  }
+};
 
 const emitter = new Emitter();
 const subscriber = emitter.subscribe('someEvent', () => { console.log('hey') });
