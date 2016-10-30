@@ -15,3 +15,14 @@ const flattenWithReduce = array => array.reduce((acc, cur) => Array.isArray(cur)
  */
 const flattenWithMap = array => [].concat.apply([], array.map(item => Array.isArray(item) ? flattenWithMap(item) : item));
 
+const flattenWithSplice = array => {
+  let i = 0;
+  while (i < array.length) {
+    if (Array.isArray(array[i])) {
+      array.splice.apply(array, [i, 1].concat(array[i]));
+    }
+    i++;
+  }
+  return array;
+};
+
