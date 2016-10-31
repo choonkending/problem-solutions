@@ -19,3 +19,17 @@ function printS(n) {
   console.log(result.slice(0, n));
 }
 
+function repeat(n) {
+  let result = 's';
+  let repeat = '';
+  while (true) {
+    if ((n & 1) === 1) {
+      repeat+=result;
+    }
+    n >>>= 1;
+    if (n === 0) break;
+    result += result;
+  }
+  return repeat;
+}
+
